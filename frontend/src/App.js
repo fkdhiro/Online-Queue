@@ -10,6 +10,8 @@ import Pronto from './components/prontos';
 import Proximo from './components/proximos';
 import Chamando from './components/Chamando';
 
+// Teste para ver se ta funcionando o commit
+
 function App() {
   const [itens, setItens] = useState([]);
   function getData() {
