@@ -51,8 +51,8 @@ function AdminPage() {
         <h1 className="titulo-adm">FILA CATUAI</h1>
 
         <div className="filtros">
-          <button className="btn-novo" onClick={() => insertDocument().then(fetchData)}>Inserir Novo</button>
-          <button className="btn-refresh" onClick={fetchData}>Atualizar</button>
+          <button className="btn btn-novo" onClick={() => insertDocument().then(fetchData)}>Inserir Novo</button>
+          <button className="btn btn-novo" onClick={fetchData}>Atualizar</button>
         </div>
 
         {dadosPrint && (
@@ -63,7 +63,7 @@ function AdminPage() {
           </div>
         )}
 
-        <button onClick={toggleShortcut} className="btn-toggle-shortcut">
+        <button onClick={toggleShortcut} className="btn btn-toggle-shortcut">
           {shortcutEnabled ? 'Desativar Captura' : 'Ativar Captura'}
         </button>
 
@@ -91,7 +91,7 @@ function AdminPage() {
           
           {itensStatus2.length > 0 && (
             <div>
-            <button onClick={toggleChamados}>
+            <button onClick={toggleChamados} className='btn btn-chamados'>
               {verChamados ? 'Esconder chamados' : 'Ver já chamados'}
             </button>
             {verChamados && (
