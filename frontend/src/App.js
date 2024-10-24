@@ -96,7 +96,9 @@ function App() {
               ) : null
             ))}
           </div>
-          <button onClick={VerChamados}>
+
+          <div></div>
+          <button className="ver-chamados" onClick={VerChamados}>
               <label>{mostrandoProntos ? "Ver Menos" : "Ver Já Chamados"}</label>
           </button>
           <div className='naoveio'>

@@ -20,20 +20,17 @@
     justify-content: center;
     color: #fff;
     background-color: #BE0E19;
-    height: 180px;
+    height: 200px;
     border-radius: 30px;
     margin: 15px 0 20px 0;
     position: relative;
-    padding-top: 8px;
 }
-
 .pos {
     position: absolute;
     top: 12px;
     left: 20px;
     font-size: 30px;
 }
-
 .chamando p {
     position: absolute;
     top: 20px;
@@ -44,15 +41,13 @@
     font-weight: 00;
     text-align: center;
 }
-
 .chamando h1 {
     font-size: 5em;
     font-weight: 700;
 }
-
 .name {
     position: absolute;
-    top: 170px;
+    top: 145px;
     left: 50%;
     transform: translateX(-50%);
     padding: 5px;
@@ -71,6 +66,9 @@
 .naoveio p {
     margin-right: auto;
     width: 100%;
+}
+.ver-chamados {
+    justify-content: flex-end;
 }
 .prontos {
     display: flex;
