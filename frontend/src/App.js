@@ -34,6 +34,7 @@ function App() {
     setIsAlertOpen(false);
     setHighlightedStatus(foundItem.status);
     setJaAbriu(true)
+    console.log("highlightedSenha:", foundItem.codigo);
     if (!singleton) {
       setSingleton(true);
     }
@@ -52,15 +53,15 @@ function App() {
   };
 
   useEffect(() => {
-    getData()
+    getData();
     if (!jaAbriu) {
-      setIsAlertOpen(true)
+      setIsAlertOpen(true);
     }
-
+  
     if (highlightedStatus === 2) {
       setMostrandoProntos(true);
     }
-  }, [singleton]);
+  }, [singleton, highlightedStatus, jaAbriu]);
 
   return (
     <div className="App">

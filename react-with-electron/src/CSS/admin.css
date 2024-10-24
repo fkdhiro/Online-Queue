@@ -63,21 +63,39 @@ body {
 }
 
 /* Botão Novo */
-.btn-novo {
+.btn {
     padding: 6px 12px;
     font-size: 14px;
     cursor: pointer;
     border: none;
     border-radius: 6px;
-    background-color: #B17A5B;
     color: #ffffff;
     transition: background-color 0.3s, transform 0.3s;
     text-transform: uppercase;
 }
 
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* Cores específicas */
+.btn-novo {
+    background-color: #B17A5B;
+}
+
 .btn-novo:hover {
     background-color: #9e6d4e;
-    transform: scale(1.05);
+}
+
+.btn-toggle-shortcut,
+.btn-chamados {
+    background-color: #BE0E19;
+    
+}
+
+.btn-toggle-shortcut:hover,
+.btn-chamados:hover {
+    background-color: #BE0E19;
 }
 
 /* Seções */

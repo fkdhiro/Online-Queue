@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
 const screenshot = require('screenshot-desktop');
-const Jimp = require('jimp');
+const sharp = require('sharp');
 const vision = require('@google-cloud/vision');
 const { API_KEY } = require('./config');
 
@@ -30,28 +30,40 @@ app.whenReady().then(() => {
             globalShortcut.register('Z', async () => {
                 try {
                     const img = await screenshot({ format: 'png' });
-                    const image = await Jimp.read(img);
-        
-                    const x = 1490;
-                    const y = 215;
+
+                    const x = 30;
+                    const y = 230;
                     const width = 370;
                     const height = 200;
-        
-                    image.crop(x, y, width, height);
-                    const croppedBuffer = await image.getBufferAsync(Jimp.MIME_PNG);
-        
+
+                    // Verifica as dimensões da imagem
+                    const { width: imgWidth, height: imgHeight } = await sharp(img).metadata();
+
+                    // Verifica se as coordenadas de extração estão dentro dos limites da imagem
+                    if (x < 0 || y < 0 || width <= 0 || height <= 0 || (x + width) > imgWidth || (y + height) > imgHeight) {
+                        throw new Error('As coordenadas de extração estão fora dos limites da imagem.');
+                    }
+
+                    // Usando sharp para cortar a imagem
+                    const croppedBuffer = await sharp(img)
+                        .extract({ left: x, top: y, width: width, height: height }) // Recorta a imagem
+                        .png()
+                        .toBuffer();
+
                     const imageBase64 = `data:image/png;base64,${croppedBuffer.toString('base64')}`;
-        
+
+                    // Detecção de texto usando Google Vision API
                     const [result] = await client.textDetection({ image: { content: croppedBuffer } });
                     const textArray = result.textAnnotations.map(annotation => annotation.description).filter(text => text.trim() !== '');
-        
+
                     const resultObject = { codigo: textArray[0], imageBase64 };
-                    console.log(resultObject.codigo, resultObject.ordem);
-        
+                    console.log(resultObject.codigo);
+
                     // Envia os dados para o front-end via `ipcRenderer`
                     const win = BrowserWindow.getAllWindows()[0]; // Obtém a janela ativa
                     win.webContents.send('screenshot-captured', resultObject); // Envia os dados para o front-end
                     
+                    // Armazenar o código no banco de dados
                     const objetoBanco = { codigo: textArray[0] }
                     await insertPrint(objetoBanco);
 

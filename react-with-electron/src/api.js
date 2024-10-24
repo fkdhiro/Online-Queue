@@ -8,19 +8,20 @@ export async function getData() {
 
 // Função para inserir um novo documento
 export async function insertDocument() {
-  const lastItem = await getLastItem();
-  const newItem = lastItem + 1;
+  const lastOrdemCriacao = await getLastOrdemCriacao();
+  const lastPosicao = await getLastPosicao();
+  const newItem = lastPosicao + 1;
   const response = await fetch(`${API_URL}/add`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text: '', active: true, codigo: newItem * 100, ordem: newItem })
+    body: JSON.stringify({ text: '', codigo: newItem * 100, posicao: lastPosicao + 1, status: 3, ordem_criacao: lastOrdemCriacao + 1 })
   });
   return response.json();
 }
 
 export async function insertPrint(item) {
   const ordemCriacao = await getLastOrdemCriacao() + 1;
-  const posItem = await getLastItem();
+  const posItem = await getLastPosicao();
   const newPosItem = posItem + 1;
 
   // 2. Realizar o POST com o novo item incluindo ordem_criacao
@@ -46,7 +47,7 @@ export async function getLastOrdemCriacao() {
   
   return ordemCriacaoItem;
 }
-export async function getLastItem() {
+export async function getLastPosicao() {
   const response = await fetch(`${API_URL}/list`);
   const data = await response.json();
 
